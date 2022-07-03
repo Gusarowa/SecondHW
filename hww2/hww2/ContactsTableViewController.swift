@@ -1,30 +1,32 @@
 //
-//  TableViewController.swift
-//  hW2
+//  ContactsTableViewController.swift
+//  hww2
 //
 //  Created by Лена Гусарова on 03.07.2022.
 //
 
 import UIKit
 
-struct Student {
-    let name : String
-    let averageScore: Double
+struct Contact{
+    let name: String
 }
 
-
-class TableViewController: UITableViewController {
-    
-    let student: [Student] = [
-    Student (name: "Lena" , averageScore: 56),
-    Student (name: "Poly" , averageScore: 90),
-    Student (name: "Airi" , averageScore: 60)
+class ContactsTableViewController: UITableViewController {
+    let contacts : [Contact] = [
+        Contact(name: "Poly"),
+        Contact(name: "Danil"),
+        Contact(name: "Artem"),
+        Contact(name: "Timur"),
+        Contact(name: "Ivan")
+     
     ]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(TableViewCell.self, forCellReuseIdentifier:"TableViewCell")
-        
+//        tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier:  "ContactsTableViewCell")
+
+       
     }
 
     // MARK: - Table view data source
@@ -34,18 +36,39 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return student.count
+        return contacts.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
-
-
+       guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsTableViewCell", for: indexPath) as? ContactsTableViewCell else {return UITableViewCell()}
+        
+        cell.nameLabel.text = contacts[indexPath.row].name
+        
         return cell
     }
     
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        90
+    }
 
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        contacts[indexPath.row]
+        
+        guard let infoVC = storyboard?.instantiateViewController(withIdentifier: "infoViewController") as? infoViewController else {return}
+        
+        infoVC.name = contacts[indexPath.row].name
+        
+        present(infoVC, animated: true)
+    }
+    
+    
+    
+    
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
