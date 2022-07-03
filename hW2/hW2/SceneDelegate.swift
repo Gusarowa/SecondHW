@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  SecondHW
+//  hW2
 //
-//  Created by Тимур Миргалиев on 01.07.2022.
+//  Created by Лена Гусарова on 02.07.2022.
 //
 
 import UIKit
